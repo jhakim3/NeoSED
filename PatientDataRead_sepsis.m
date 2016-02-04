@@ -1,7 +1,7 @@
 % function main()
 close all
 clear all
-load matchedrecords
+load matchedrecords_sepsis
 
 % n_url='https://physionet.org/physiobank/database/mimic2wdb/RECORDS-neonates';
 % n_records=strsplit(urlread(n_url));
