@@ -12,7 +12,7 @@ c={};
 allpatients=cell(1,length(matchedrecords_healthy_numerics));
 
 %24?
-for i=[20:30]%length(n_records)
+for i=[1:53]%length(n_records)
     try
         %record=matchedsid_sepsis(i);
         

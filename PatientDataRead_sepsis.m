@@ -13,7 +13,7 @@ c={};
 allpatients=cell(1,length(matchedrecords_sepsis_numerics));
 
 
-for i=[2:10]%length(n_records)
+for i=[2:54]%length(n_records)
     
     
     %record=matchedsid_sepsis(i);
@@ -60,7 +60,7 @@ for i=[2:10]%length(n_records)
     toc
     
     patient_data=struct('sid',[],'Time_n',tm_n,'HR',[],'SpO2',[],'Resp_n',[],'NBP_sys',[],'NBP_dias',[], 'NBP_mean',[],'Time',tm,'II',[],'III',[],'V',[],'aVR',[],'Resp',[],'Pleth',[]);
-    sidWhole=matchedrecords_healthy_numerics{i};
+    sidWhole=matchedrecords_sepsis_numerics{i};
     patient_data.sid=sidWhole(1:6);
     CH=length(info_n);
     for ch=1:CH
