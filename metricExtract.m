@@ -1,25 +1,31 @@
-function [HR,RR,HRV,RRV,SpO2] = metricExtract(patient)%patient is an individual patient
+function [HR,HRV,SpO2] = metricExtract(patient)%patient is an individual patient
 
-plethVec = patient.Pleth;
-respVec = patient.Resp;
+%plethVec = patient.Pleth;
+%respVec = patient.Resp;
 
-[~,plethLocs]=findpeaks(plethVec);
-[~,respLocs]=findpeaks(respVec);
+IIvec=patient.II;
+[~,IIlocs]=findpeaks(IIvec,'MinPeakHeight',0.5);
+
+%[~,plethLocs]=findpeaks(plethVec);
+%[~,respLocs]=findpeaks(respVec);
 
 windowSize=100;
-logVarPleth = formLogVarVec(plethLocs,windowSize);
-logVarResp = formLogVarVec(respLocs,windowSize);
+%logVarPleth = formLogVarVec(plethLocs,windowSize);
+%logVarResp = formLogVarVec(respLocs,windowSize);
+logVarII = formLogVarVec(IIlocs,windowSize);
 
 %filtering
 
 %MAX CUTOFF VALUE is empirical
 maxCutoff = 10;
-processedPleth = applyFilter(logVarPleth,maxCutoff);
-processedResp = applyFilter(logVarResp,maxCutoff);
+%processedPleth = applyFilter(logVarPleth,maxCutoff);
+%processedResp = applyFilter(logVarResp,maxCutoff);
+processedII = applyFilter(logVarII,maxCutoff);
 
-HRV=processedPleth;
-RRV=processedResp;
+%HRV=processedPleth;
+%RRV=processedResp;
 
+HRV = processedII;
 
 %%%%%Yu code
 
@@ -34,7 +40,6 @@ end
 
 
 SpO2 = SpO2_AAC;
-RR=patient.Resp_n;
 HR=patient.HR;
 
 

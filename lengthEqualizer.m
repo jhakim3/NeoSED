@@ -1,13 +1,17 @@
 function [ stretchedInputs ] = lengthEqualizer(varargin)
 
 
-maxLength = max([length(varargin{1}), length(varargin{2}), length(varargin{3}), length(varargin{4}), length(varargin{5})]);
+maxLength = max([length(varargin{1}), length(varargin{2}), length(varargin{3})]);
 
-stretchedInputs=zeros(5,maxLength);
+stretchedInputs=zeros(3,maxLength);
 
-for i=1:5
+for i=1:3
     vararg=varargin{i};
     varLength=length(vararg);
+    
+    if (varLength)==0
+       error('Error 1'); 
+    end
     
     for j=1:floor(maxLength/varLength)
         
