@@ -3,6 +3,7 @@ hi
 
 mean (hr)
 mean(hrv)
+var(hrv)
 mean (skewness (hr hist))
 d/dt HR
 d/dt HRV

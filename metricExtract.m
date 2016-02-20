@@ -4,7 +4,12 @@ function [HR,HRV,SpO2] = metricExtract(patient)%patient is an individual patient
 %respVec = patient.Resp;
 
 IIvec=patient.II;
+if(isempty(IIvec))
+    error('Error 2');
+end
+
 [~,IIlocs]=findpeaks(IIvec,'MinPeakHeight',0.5);
+
 
 %[~,plethLocs]=findpeaks(plethVec);
 %[~,respLocs]=findpeaks(respVec);
@@ -30,7 +35,7 @@ HRV = processedII;
 %%%%%Yu code
 
 patient_SpO2=patient.SpO2;
-window_size=5; 
+window_size=5;
 SpO2_AAC=zeros(1,length(patient_SpO2)-2*window_size+1);
 for i=window_size:length(patient.SpO2)-window_size
     max_SpO2=ones(length(window_size*2+1),1).*100;
@@ -47,17 +52,17 @@ HR=patient.HR;
 end
 
 function logVarVec = formLogVarVec(locs, windowSize)
-    logVarVec=zeros(1,length(locs)-windowSize);
-    for i=windowSize+1:length(locs)
-        temp=zeros(1,length(windowSize));
-        for j=i:-1:i-windowSize+1
-            temp(i-j+1)=locs(j)-locs(j-1);
-        end
-        logVarVec(i)=log(var(temp));
+logVarVec=zeros(1,length(locs)-windowSize);
+for i=windowSize+1:length(locs)
+    temp=zeros(1,length(windowSize));
+    for j=i:-1:i-windowSize+1
+        temp(i-j+1)=locs(j)-locs(j-1);
     end
+    logVarVec(i)=log(var(temp));
+end
 
 end
 
 function filtered = applyFilter(logVarVec, threshold)
-    filtered = logVarVec(logVarVec<threshold);
+filtered = logVarVec(logVarVec<threshold);
 end
